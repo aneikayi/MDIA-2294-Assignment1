@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>MDIA 2294</title>
+	
+	<style>
+	    thead{
+	        font-weight:bold;
+	    }
+	    
+	    td{
+	        padding-left:5px;
+	        padding-right:5px;	        
+	    }
+	    
+	    td.sub-total{
+	        text-align:right;	        
+	    }
+	</style>
+
+</head>
+<body>
+	<h1>MDIA 2294: ACME Corp Invoice</h1>
+	
+	<table>
+	    <thead>
+	        <tr>
+	            <td>ITEM</td>
+	            <td>DESCRIPTION</td>
+	            <td>QTY</td>
+	            <td>PRICE</td>
+	            <td>LINE TOTAL</td>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>1</td>
+	            <td><input id="line-1-description" type="text" size="40" value="Anvil" /></td>
+	            <td><input id="line-1-quantity" type="text" size="3" value="5" /></td>
+	            <td><input id="line-1-price" type="text" size="6" value="35.00" /></td>
+	            <td class="sub-total"><span id="line-1"></span></td>
+	        </tr>
+	        <tr>
+	            <td>2</td>
+	            <td><input id="line-2-description" type="text" size="40" value="Rocket Skates (each)" /></td>
+	            <td><input id="line-2-quantity" type="text" size="3" value="2" /></td>
+	            <td><input id="line-2-price" type="text" size="6" value="24.99" /></td>
+	            <td class="sub-total"><span id="line-2"></span></td>
+	        </tr>
+	        <tr>
+	            <td>3</td>
+	            <td><input id="line-3-description" type="text" size="40" value="Giant Magnet" /></td>
+	            <td><input id="line-3-quantity" type="text" size="3" value="1" /></td>
+	            <td><input id="line-3-price" type="text" size="6" value="125.50" /></td>
+	            <td class="sub-total"><span id="line-3"></span></td>
+	        </tr>
+	        <tr>
+	            <td>4</td>
+	            <td><input id="line-4-description" type="text" size="40" value="Ball bearings" /></td>
+	            <td><input id="line-4-quantity" type="text" size="3" value="1000" /></td>
+	            <td><input id="line-4-price" type="text" size="6" value="0.25" /></td>
+	            <td class="sub-total"><span id="line-4"></span></td>
+	        </tr>
+	        <tr>
+	            <td>5</td>
+	            <td><input id="line-5-description" type="text" size="40" value="Portable holes" /></td>
+	            <td><input id="line-5-quantity" type="text" size="3" value="12" /></td>
+	            <td><input id="line-5-price" type="text" size="6" value="15.25" /></td>
+	            <td class="sub-total"><span id="line-5"></span></td>
+	        </tr>
+	    </tbody>
+	    <tfoot>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">SUB TOTAL</td>  
+	            <td class="sub-total"><span id="sub-total"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">DISCOUNT</td>  
+	            <td class="sub-total"><span id="discount"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">TAX</td>  
+	            <td class="sub-total"><span id="tax"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">TOTAL</td>  
+	            <td class="sub-total" style="border-top:solid black 1px"><span id="total"></span></td>	        
+	        </tr>
+	    </tfoot>	    
+	</table>
+	
+	<div><button id="calculate">Calculate</button></div>
+	<div>NOTE: discounts of 10% are given to orders over $250</div>
+
+	<!-- Ka Yi Tang, A01335759, Assignment 1 -->
+
+	<script>
+
+		// Store the button in a variable
+		const calc_btn = document.querySelector("#calculate");
+		
+		// Creates a constant and stores a number inside of it
+		const discount_value = .1;
+		const tax_value = .12;
+
+		// Create a new function 
+	    function calculate(){
+
+			// used for the running line total, sub total and overall total
+			let line_total = 0;
+			let sub_total = 0;
+			let overall_total = 0;
+
+			// item 1
+			// Create the quantity and price constant
+			const line_1_quantity = document.querySelector("#line-1-quantity").value;
+			const line_1_price = document.querySelector("#line-1-price").value;
+
+			// Multiply the quantity and the price
+            line_total = line_1_quantity * line_1_price;
+
+			// Add line total to sub total, display number with 2 decimal places 
+			document.querySelector("#line-1").innerHTML = line_total;
+			sub_total += line_total;
+			document.querySelector("#sub-total").innerHTML = "$ " + sub_total.toFixed(2);
+
+			// item 2
+			const line_2_quantity = document.querySelector("#line-2-quantity").value;
+			const line_2_price = document.querySelector("#line-2-price").value;
+
+            line_total = line_2_quantity * line_2_price;
+
+			document.querySelector("#line-2").innerHTML = line_total;
+			sub_total += line_total;
+			document.querySelector("#sub-total").innerHTML = "$ " + sub_total.toFixed(2);
+
+			// item 3
+			const line_3_quantity = document.querySelector("#line-3-quantity").value;
+			const line_3_price = document.querySelector("#line-3-price").value;
+
+            line_total = line_3_quantity * line_3_price;
+
+			document.querySelector("#line-3").innerHTML = line_total;
+			sub_total += line_total;
+			document.querySelector("#sub-total").innerHTML = "$ " + sub_total.toFixed(2);
+
+			// item 4
+			const line_4_quantity = document.querySelector("#line-4-quantity").value;
+			const line_4_price = document.querySelector("#line-4-price").value;
+
+            line_total = line_4_quantity * line_4_price;
+
+			document.querySelector("#line-4").innerHTML = line_total;
+			sub_total += line_total;
+			document.querySelector("#sub-total").innerHTML = "$ " + sub_total.toFixed(2);
+
+			// item 5
+			const line_5_quantity = document.querySelector("#line-5-quantity").value;
+			const line_5_price = document.querySelector("#line-5-price").value;
+
+            line_total = line_5_quantity * line_5_price;
+
+			document.querySelector("#line-5").innerHTML = line_total;
+			sub_total += line_total;
+			document.querySelector("#sub-total").innerHTML = "$ " + sub_total.toFixed(2);
+
+
+			// Count discount, tax and total
+			
+			// (sub_total > 250) checks whether the value of sub_total is greater than 250
+			//	"?" Ternary operator, like a shorthand for an "if-else" statement
+			//	"discount_value : 0" if the condition is false (sub_total not greater than 250), it assigns the value 0 to "discount_value"
+			let discount_total = (sub_total > 250) ? sub_total * discount_value : 0;
+			document.querySelector("#discount").innerHTML = "$ " + discount_total.toFixed(2);
+
+			// Used for the running tax
+			let tax = 0;
+			tax = (sub_total - discount_total) * tax_value;
+			document.querySelector("#tax").innerHTML = "$ " + tax.toFixed(2);
+
+			//	"1 + tax_value" add 1 to tax rate, because the tax is applied as a percentage, adding 1 represents 100% of the orginal amount plus the tax
+			overall_total = (sub_total - discount_total) * (1 + tax_value);
+			document.querySelector("#total").innerHTML = "$ " + overall_total.toFixed(2);
+
+			}
+			
+		// Click and calculate, display the result
+		calc_btn.addEventListener("click", calculate);
+
+    </script>
+</body>
+</html>
